@@ -1,0 +1,10 @@
+create table Department(name varchar2(50) unique,building varchar(50),budget number);
+create table student(name varchar2(50)unique,credits varchar(50),department varchar2(50) references department(name));
+create table instructor(name varchar2(50) unique,salary number,department varchar2(50) references department(name));
+create table advisor(student varchar2(50) references student(name),instructor varchar2(50) references instructor(name));
+create table courses(title varchar2(50) unique ,credits number,department varchar2(50) references department(name));
+create table classroom(building varchar2(50),room_number number,capacity number);
+create table timeslot(day varchar2(50),startime varchar2(50), endtime varchar2(50));
+create table section(semester number unique,year number, course varchar2(50) references courses(title),classroom number references classroom(room_number),timeslot varchar2(50)references timeslot(day));
+create table studentsection(grade varchar2(50),section varchar2(50) references section(semester),student varchar2(50) references student(name));
+create table instructorsection(instructor varchar2(50) references instructor(name),section varchar2(50) references section(semester));
